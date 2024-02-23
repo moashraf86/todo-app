@@ -28,9 +28,9 @@ export const Form = ({ onAddItem }) => {
         required
         onChange={(e) => setItem(e.target.value)}
         value={title}
-        className="flex-1 border border-slate-300 rounded-md   py-2 px-3 "
+        className="flex-1 border border-slate-300 bg-slate-50 dark:bg-gray-950 dark:border-gray-800 hover:border-slate-900 rounded-md py-2 px-3"
       />
-      <button className="px-5 py-2 bg-slate-900 text-gray-50 dark:bg-white dark:text-gray-900 rounded-md">
+      <button className="px-5 py-2 font-semibold bg-slate-800 hover:bg-slate-950 text-gray-50 dark:bg-slate-50 dark:text-gray-950 dark:hover:bg-slate-100 outline-slate-400 dark:outline-slate-400 rounded-md">
         Add Task
       </button>
     </form>

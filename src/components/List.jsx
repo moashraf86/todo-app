@@ -21,8 +21,8 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
   }
 
   return (
-    <div className="mt-6 mb-2 border border-slate-300 rounded-md">
-      <div className="px-6 py-4 border-b border-slate-300">
+    <div className="mt-6 mb-2 border border-slate-300 dark:border-gray-800 rounded-md">
+      <div className="px-6 py-4 border-b border-slate-300 dark:border-gray-800">
         <h2 className="text-[24px] font-semibold ">Tasks</h2>
       </div>
       <ul>
@@ -37,7 +37,7 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
       </ul>
       <div className="flex items-center justify-between px-6 py-4">
         <select
-          className="px-2 appearance-none py-1 border border-slate-300 rounded-md cursor-pointer hover:border-slate-500 focus:border-slate-500 focus:outline-none"
+          className="px-2 appearance-none bg-slate-50 hover:bg-slate-100 dark:bg-gray-950 dark:hover:bg-slate-800 py-1 border border-slate-300 dark:border-gray-800 rounded-md cursor-pointer focus:border-gray-700 focus:outline-none text-[12px] font-medium text-slate-600 dark:text-slate-300"
           value={sortBy}
           onChange={(e) => handleSortBy(e)}
         >
@@ -47,7 +47,7 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
         </select>
         <button
           onClick={onClearList}
-          className="text-slate-400 hover:text-slate-900 :disabled:text-slate-300 disabled:cursor-not-allowed disabled:text-slate-300"
+          className="text-slate-600 dark:text-slate-300 text-[12px] font-medium  hover:text-slate-900 dark:hover:text-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
           {...(items.length === 0 && { disabled: true })}
         >
           Clear List

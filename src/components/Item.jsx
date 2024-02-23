@@ -2,7 +2,7 @@
 export const Item = ({ item, onDeleteItem, onCheckItem }) => {
   return (
     <li
-      className="flex items-center px-6 py-4 border-b border-slate-300"
+      className="flex items-center px-6 py-4 border-b border-slate-300 dark:border-gray-800"
       style={item.packed ? { textDecoration: "line-through" } : {}}
     >
       <input
@@ -10,16 +10,16 @@ export const Item = ({ item, onDeleteItem, onCheckItem }) => {
         type="checkbox"
         onChange={() => onCheckItem(item.id)}
         checked={item.checked}
-        className="w-5 h-5 mr-4 checked:bg-red-500 default:ring-1 default:ring-slate-300 cursor-pointer hidden"
+        className="hidden"
       />
 
       <label
-        className="flex gap-4 items-center text-lg font-medium me-auto cursor-pointer"
+        className="flex gap-4 items-center text-sm font-normal me-auto cursor-pointer"
         htmlFor={item.id}
       >
         <button
-          className={`w-6 h-6 border border-slate-300 rounded-full flex items-center justify-center ${
-            item.checked ? "bg-slate-900 border-slate-900" : ""
+          className={`w-6 h-6 border border-slate-300 dark:border-gray-800 rounded-full flex items-center justify-center ${
+            item.checked ? "bg-slate-800 border-gray-900" : ""
           }`}
           role="checkbox"
           aria-checked={item.checked}
@@ -41,7 +41,15 @@ export const Item = ({ item, onDeleteItem, onCheckItem }) => {
             />
           </svg>
         </button>
-        {item.title}
+        <span
+          className={`${
+            item.checked
+              ? "line-through italic text-slate-400 dark:text-slate-600"
+              : ""
+          }`}
+        >
+          {item.title}
+        </span>
       </label>
       <button onClick={() => onDeleteItem(item.id)}>
         <svg

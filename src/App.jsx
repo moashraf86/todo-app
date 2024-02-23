@@ -52,7 +52,7 @@ function App() {
   }
 
   return (
-    <div className="App container px-4 pt-20 mx-auto ">
+    <div className="App container max-w-[640px] px-4 pt-20 mx-auto ">
       <Header />
       <Form onAddItem={handleAddItem} />
       <List
@@ -70,7 +70,7 @@ function Stats({ items }) {
   if (!items.length) {
     return (
       <div className="text-center">
-        <em className="text-slate-400 text-sm">
+        <em className="text-slate-400 text-[12px]">
           Start adding some items to your list
         </em>
       </div>
@@ -81,7 +81,7 @@ function Stats({ items }) {
   const percentage = Math.round((numChecked / numItems) * 100);
   return (
     <div className="text-center">
-      <em className="text-slate-400 text-sm">
+      <em className="text-slate-400 text-[12px]">
         {percentage === 100
           ? "You got everything Done"
           : `You have ${numItems} items on your list, and you already checked ${numChecked} (${percentage}%)
