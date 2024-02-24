@@ -6,13 +6,22 @@ import "./App.css";
 import { Header } from "./components/Header";
 import { List } from "./components/List";
 
-const initialItems = [
-  { id: 1, title: "Paris", checked: true },
-  { id: 2, title: "London", checked: false },
-  { id: 3, title: "Barcelona", checked: false },
+const defaultItems = [
+  { id: 1, title: "Task 1", checked: true },
+  { id: 2, title: "Task 2", checked: false },
+  { id: 3, title: "Task 3", checked: false },
 ];
 
 function App() {
+  const initialItems = () => {
+    const localItems = JSON.parse(localStorage.getItem("items"));
+    if (localItems.length > 0) {
+      return localItems;
+    } else {
+      localStorage.setItem("items", JSON.stringify(defaultItems));
+      return defaultItems;
+    }
+  };
   const [items, setItems] = useState(initialItems);
 
   /**
@@ -22,6 +31,8 @@ function App() {
     setItems((items) => {
       return [...items, item];
     });
+    // save to local storage
+    localStorage.setItem("items", JSON.stringify([...items, item]));
   }
   /**
    * handleCheckItem
@@ -33,6 +44,16 @@ function App() {
         return { ...item, checked: !item.checked };
       });
     });
+    // update local storage
+    localStorage.setItem(
+      "items",
+      JSON.stringify(
+        items.map((item) => {
+          if (item.id !== id) return item;
+          return { ...item, checked: !item.checked };
+        })
+      )
+    );
   }
   /**
    * handleDeleteItem
@@ -41,6 +62,11 @@ function App() {
     setItems((items) => {
       return items.filter((item) => item.id !== id);
     });
+    // delete from local storage
+    localStorage.setItem(
+      "items",
+      JSON.stringify(items.filter((item) => item.id !== id))
+    );
   }
   /**
    * handleClearList
@@ -48,6 +74,8 @@ function App() {
   function handleClearList() {
     if (window.confirm("Are you sure you want to clear the list?")) {
       setItems([]);
+      // Clear local storage
+      localStorage.setItem("items", JSON.stringify([]));
     }
   }
 

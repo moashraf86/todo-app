@@ -11,7 +11,7 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
   }
 
   //Sort items based on sortBy value
-  let sortedItems = items; //  DERIVED STATE
+  let sortedItems = items;
   if (sortBy === "description") {
     sortedItems = items.slice().sort((a, b) => a.title.localeCompare(b.title));
   } else if (sortBy === "checked") {
@@ -19,6 +19,8 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
   } else {
     sortedItems = items;
   }
+  // update local storage with sorted items
+  localStorage.setItem("items", JSON.stringify(sortedItems));
 
   return (
     <div className="mt-6 mb-2 border border-slate-300 dark:border-gray-800 rounded-md">

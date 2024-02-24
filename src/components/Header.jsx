@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { ThemeToggler } from "./ThemeToggler";
 // Code: Header component
 export const Header = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const storedDarkMode = JSON.parse(localStorage.getItem("darkMode"));
+  const [darkMode, setDarkMode] = useState(storedDarkMode);
 
   useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
     if (darkMode) {
       document.documentElement.classList.add("dark");
     } else {
