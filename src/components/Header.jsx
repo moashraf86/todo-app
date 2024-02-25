@@ -1,0 +1,27 @@
+import { useEffect, useState } from "react";
+import { ThemeToggler } from "./ThemeToggler";
+// Code: Header component
+export const Header = () => {
+  const storedDarkMode = JSON.parse(localStorage.getItem("darkMode"));
+  const [darkMode, setDarkMode] = useState(storedDarkMode || true);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  return (
+    <header>
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-[32px] md:text-[64px] font-semibold font-mono uppercase tracking-widest">
+          Todo List
+        </h1>
+        <ThemeToggler darkMode={darkMode} setDarkMode={setDarkMode} />
+      </div>
+    </header>
+  );
+};
