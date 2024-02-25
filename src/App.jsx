@@ -2,9 +2,11 @@
 import { useState } from "react";
 import "./components/Header";
 import { Form } from "./components/Form";
-import "./App.css";
 import { Header } from "./components/Header";
 import { List } from "./components/List";
+import { createPortal } from "react-dom";
+import { Modal } from "./components/Modal";
+import "./App.css";
 
 const defaultItems = [
   { id: 1, title: "Task 1", checked: true },
@@ -13,6 +15,9 @@ const defaultItems = [
 ];
 
 function App() {
+  /**
+   * initialItems - Get items from local storage or use default items
+   */
   const initialItems = () => {
     const localItems = JSON.parse(localStorage.getItem("items")) || [];
     if (localItems.length > 0) {
@@ -22,7 +27,10 @@ function App() {
       return defaultItems;
     }
   };
+
   const [items, setItems] = useState(initialItems);
+  const [showModal, setShowModal] = useState(false);
+  const [deletedItem, setDeletedItem] = useState(null);
 
   /**
    * handleAddItem
@@ -62,6 +70,7 @@ function App() {
     setItems((items) => {
       return items.filter((item) => item.id !== id);
     });
+    setShowModal(false);
     // delete from local storage
     localStorage.setItem(
       "items",
@@ -79,16 +88,35 @@ function App() {
     }
   }
 
+  function handleOpenModal(id) {
+    setShowModal(true);
+    setDeletedItem(id);
+  }
+
+  function handleCloseModal() {
+    setShowModal(false);
+  }
+
   return (
     <div className="App container max-w-[640px] px-4 pt-20 mx-auto ">
       <Header />
       <Form onAddItem={handleAddItem} />
       <List
         items={items}
-        onDeleteItem={handleDeleteItem}
+        onDeleteItem={handleOpenModal}
         onCheckItem={handleCheckItem}
         onClearList={handleClearList}
       />
+      {showModal &&
+        createPortal(
+          <Modal
+            itemId={deletedItem}
+            items={items}
+            onClose={handleCloseModal}
+            onConfirmDelete={handleDeleteItem}
+          />,
+          document.body
+        )}
       <Stats items={items} />
     </div>
   );
