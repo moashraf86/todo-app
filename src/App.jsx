@@ -14,7 +14,7 @@ const defaultItems = [
 
 function App() {
   const initialItems = () => {
-    const localItems = JSON.parse(localStorage.getItem("items"));
+    const localItems = JSON.parse(localStorage.getItem("items")) || [];
     if (localItems.length > 0) {
       return localItems;
     } else {

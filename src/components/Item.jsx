@@ -14,11 +14,11 @@ export const Item = ({ item, onDeleteItem, onCheckItem }) => {
       />
 
       <label
-        className="flex gap-4 items-center text-sm font-normal me-auto cursor-pointer"
+        className="flex gap-4 items-start  text-sm font-normal me-auto cursor-pointer"
         htmlFor={item.id}
       >
         <button
-          className={`w-6 h-6 border border-slate-300 dark:border-gray-800 rounded-full flex items-center justify-center ${
+          className={`w-6 h-6 min-w-6 border border-slate-300 dark:border-gray-800 rounded-full flex items-center justify-center ${
             item.checked ? "bg-slate-800 border-gray-900" : ""
           }`}
           role="checkbox"
