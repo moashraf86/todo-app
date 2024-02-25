@@ -76,7 +76,7 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
             <span
               className={`${filterBy === "checked" ? "text-blue-600" : ""}`}
             >
-              Checked
+              Completed
             </span>
           </label>
           <label htmlFor="active" className="cursor-pointer">
@@ -111,8 +111,8 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
           onChange={(e) => handleSortBy(e)}
         >
           <option value="input">Sort by input order</option>
-          <option value="description">Sort by description</option>
-          <option value="checked">Sort by checked</option>
+          <option value="description">Sort by alphabetical</option>
+          <option value="checked">Sort by completed</option>
         </select>
         <button
           onClick={onClearList}
