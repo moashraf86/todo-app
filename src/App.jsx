@@ -46,7 +46,12 @@ function App() {
     setItems((prevItems) =>
       prevItems.map((item) => (item.id !== updatedItem.id ? item : updatedItem))
     );
-    localStorage.setItem("items", JSON.stringify(items));
+    localStorage.setItem(
+      "items",
+      JSON.stringify(
+        items.map((item) => (item.id !== updatedItem.id ? item : updatedItem))
+      )
+    );
   }
 
   // Function to handle checking/unchecking an item
@@ -56,7 +61,14 @@ function App() {
         item.id !== id ? item : { ...item, checked: !item.checked }
       )
     );
-    localStorage.setItem("items", JSON.stringify(items));
+    localStorage.setItem(
+      "items",
+      JSON.stringify(
+        items.map((item) =>
+          item.id !== id ? item : { ...item, checked: !item.checked }
+        )
+      )
+    );
   }
 
   // Function to handle deleting an item

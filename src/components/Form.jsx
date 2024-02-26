@@ -30,12 +30,13 @@ export const Form = ({
       onUpdateItem(updatedItem);
       setTitle("");
       setEdited(true);
-    } else {
-      // If adding a new item
-      const newItem = { title, checked: false, id: Date.now() };
-      onAddItem(newItem);
-      setTitle("");
+      return;
     }
+    // If adding a new item
+    const newItem = { title, checked: false, id: Date.now() };
+    onAddItem(newItem);
+    // return;
+    setTitle("");
   }
 
   return (
@@ -48,9 +49,9 @@ export const Form = ({
         type="text"
         placeholder={editedItem && !edited ? "Edit Task" : "Add new Task"}
         required
-        onBlur={() => {
-          setEdited(true);
-        }}
+        // onBlur={() => {
+        //   setEdited(true);
+        // }}
         onChange={(e) => setTitle(e.target.value)}
         ref={myRef}
         value={title}

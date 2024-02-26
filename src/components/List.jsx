@@ -15,7 +15,6 @@ export const List = ({
   // State for sorting and filtering
   const [sortBy, setSortBy] = useState("input");
   const [filterBy, setFilterBy] = useState("all");
-  const deleteMessage = "Are you sure you want to delete all items?";
 
   /**
    * Handles sorting of items.

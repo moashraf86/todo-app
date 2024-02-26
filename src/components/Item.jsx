@@ -8,7 +8,7 @@ export const Item = ({ item, onDeleteItem, onCheckItem, onEditItem }) => {
   return (
     <li
       className="flex items-center px-6 py-4 border-b border-slate-300 dark:border-gray-800"
-      style={item.packed ? { textDecoration: "line-through" } : {}}
+      style={item.checked ? { textDecoration: "line-through" } : {}}
     >
       {/* Checkbox for marking item as checked */}
       <input
