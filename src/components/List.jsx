@@ -2,54 +2,65 @@
 import { useState } from "react";
 import { Item } from "./Item";
 
-export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
+/**
+ * List component represents the list of tasks.
+ */
+export const List = ({
+  items,
+  onDeleteItem,
+  onCheckItem,
+  onClearList,
+  onEditItem,
+}) => {
+  // State for sorting and filtering
   const [sortBy, setSortBy] = useState("input");
   const [filterBy, setFilterBy] = useState("all");
+  const deleteMessage = "Are you sure you want to delete all items?";
 
-  //Handle SortBy
+  /**
+   * Handles sorting of items.
+   */
   function handleSortBy(e) {
     setSortBy(e.target.value);
   }
 
   /**
-   * handleFilterBy
+   * Handles filtering of items.
    */
   function handleFilterBy(value) {
     setFilterBy(value);
   }
 
+  // Apply filtering based on filterBy value
   let filteredItems = items;
-  let sortedItems = filteredItems;
-  //Filter items based on filterBy value
   if (filterBy === "checked") {
-    filteredItems = filteredItems.filter((item) => item.checked);
+    filteredItems = items.filter((item) => item.checked);
   } else if (filterBy === "active") {
-    filteredItems = filteredItems.filter((item) => !item.checked);
-  } else {
-    filteredItems = items;
+    filteredItems = items.filter((item) => !item.checked);
   }
-  //Sort items based on sortBy value
+
+  // Apply sorting based on sortBy value
+  let sortedItems = filteredItems;
   if (sortBy === "description") {
     sortedItems = filteredItems
       .slice()
       .sort((a, b) => a.title.localeCompare(b.title));
   } else if (sortBy === "checked") {
     sortedItems = filteredItems.slice().sort((a, b) => a.checked - b.checked);
-  } else {
-    sortedItems = filteredItems;
   }
 
   return (
     <div className="mt-6 mb-2 border border-slate-300 dark:border-gray-800 rounded-md">
+      {/* Header with sorting and filtering options */}
       <div className="flex justify-between items-center px-6 py-4 border-b border-slate-300 dark:border-gray-800">
         <h2 className="text-[24px] font-semibold">Tasks</h2>
         <div className="flex gap-2 text-[12px] text-slate-600 dark:text-slate-500">
+          {/* Filter buttons */}
           <button
-            onClick={() => handleFilterBy("all")}
             role="radio"
             name="filterBy"
             aria-checked={filterBy === "all"}
-            tabIndex={0}
+            onClick={() => handleFilterBy("all")}
           >
             <span
               className={`cursor-pointer ${
@@ -89,6 +100,8 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
           </button>
         </div>
       </div>
+
+      {/* List of items */}
       <ul>
         {sortedItems.map((item) => (
           <Item
@@ -96,10 +109,14 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
             item={item}
             onDeleteItem={onDeleteItem}
             onCheckItem={onCheckItem}
+            onEditItem={onEditItem}
           />
         ))}
       </ul>
+
+      {/* Footer with sorting options and clear button */}
       <div className="flex items-center justify-between px-6 py-4">
+        {/* Dropdown for sorting */}
         <select
           className="px-2 appearance-none bg-slate-50 hover:bg-slate-100 dark:bg-gray-950 dark:hover:bg-slate-800 py-1 border border-slate-300 dark:border-gray-800 rounded-md cursor-pointer focus:border-gray-700 focus:outline-none text-[12px] font-medium text-slate-600 dark:text-slate-300"
           value={sortBy}
@@ -109,10 +126,12 @@ export const List = ({ items, onDeleteItem, onCheckItem, onClearList }) => {
           <option value="description">Sort by alphabetical</option>
           <option value="checked">Sort by completed</option>
         </select>
+
+        {/* Button to clear the list */}
         <button
-          onClick={onClearList}
-          className="text-slate-600 dark:text-slate-300 text-[12px] font-medium  hover:text-slate-900 dark:hover:text-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
-          {...(items.length === 0 && { disabled: true })}
+          onClick={() => onClearList("all")}
+          className="text-slate-600 dark:text-slate-300 text-[12px] font-medium hover:text-slate-900 dark:hover:text-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
+          disabled={items.length === 0}
         >
           Clear List
         </button>

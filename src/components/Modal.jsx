@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-export const Modal = ({ itemId, onClose, onConfirmDelete }) => {
+export const Modal = ({ deletedItem, onClose, onConfirmDelete, message }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-700 bg-opacity-80">
+    <div className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-slate-700/20 backdrop-blur-sm">
       <div className="bg-slate-50 dark:bg-gray-950 py-6 rounded-md w-96 shadow-md">
         <h2 className="text-xl dark:text-slate-50 font-semibold pb-6 border-b border-slate-300 dark:border-gray-800 px-6">
           Are you sure?
         </h2>
+        <span className="text-sm px-6 pt-4 inline-block">{message}</span>
         <div className="flex justify-end gap-4 pt-6 px-6">
           <button
             onClick={onClose}
@@ -15,7 +16,7 @@ export const Modal = ({ itemId, onClose, onConfirmDelete }) => {
           </button>
           <button
             className="px-4 py-1 font-medium dark:border-slate-300 border-gray-800 bg-slate-950 hover:bg-gray-800 text-gray-50 dark:bg-slate-50 dark:text-gray-800 dark:hover:bg-slate-100 rounded-md"
-            onClick={() => onConfirmDelete(itemId)}
+            onClick={() => onConfirmDelete(deletedItem)}
           >
             Delete
           </button>
