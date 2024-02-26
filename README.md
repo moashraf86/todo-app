@@ -7,6 +7,7 @@ This is a simple todo app built with React and TailwindCSS.
 - Add new tasks
 - Mark tasks as completed
 - Delete tasks
+- Edit tasks
 - Filter tasks by status (all/completed/active)
 - sort tasks by date (order/alphabetical/checked)
 - Clear all completed tasks
